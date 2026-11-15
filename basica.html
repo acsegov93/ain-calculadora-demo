@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora AIN</title>
+</head>
+<body>
+<div id="ai-demo-banner" style="background:#fff3cd;color:#664d03;border-bottom:2px solid #ffda6a;padding:10px 14px;font:600 14px/1.4 system-ui,sans-serif;text-align:center">⚠️ <span class="aib-es">Esta página es un ejemplo creado como ejercicio de programación con inteligencia artificial. No es una herramienta clínica validada y no debe usarse para tomar decisiones médicas.</span><span class="aib-en" style="display:none">This page is an example created as an AI programming exercise. It is not a validated clinical tool and must not be used for medical decisions.</span></div>
+<h1>Calculadora de AIN</h1>
+<p>Calcula riesgo de recurrencia y de cáncer en neoplasia intraepitelial anal.</p>
+<form id="f" onsubmit="return false">
+<p>Diagnóstico:<br>
+<select id="dx"><option value="hsil">HSIL (AIN 2-3)</option><option value="lsil">LSIL (AIN 1)</option></select></p>
+<p>¿VIH?<br>
+<input type="radio" name="vih" id="si" value="si" checked> <label for="si">Sí</label>
+<input type="radio" name="vih" id="no" value="no"> <label for="no">No</label></p>
+<p>Tratamiento:<br>
+<select id="tx"><option value="abl">Ablación (IRC / electrocauterio / láser)</option><option value="no">Sin tratamiento</option></select></p>
+<p><button onclick="calc()">Calcular</button></p>
+</form>
+<div id="r"></div>
+<hr>
+<p><small>Solo para fines educativos. No sustituye el juicio clínico.</small></p>
+<p><small>Referencias: Goldstone SE et al. Dis Colon Rectum 2014;57:316-23. Palefsky JM et al. (ANCHOR) N Engl J Med 2022;386:2273-82.</small></p>
+<script>
+function calc(){
+ var dx=document.getElementById('dx').value;
+ var vih=document.getElementById('si').checked;
+ var tx=document.getElementById('tx').value;
+ var r='';
+ if(dx=='lsil'){
+  r='<p>LSIL: puede progresar a HSIL. Se recomienda seguimiento.</p>';
+ } else if(tx=='abl'){
+  r='<p><b>Recurrencia a 1 año:</b> aprox. '+(vih?'53%':'49%')+'</p>';
+  r+='<p><b>Recurrencia a 3 años:</b> aprox. '+(vih?'77%':'66%')+'</p>';
+  r+='<p><b>Riesgo de cáncer:</b> bajo (aprox. 2% a 3 años)</p>';
+ } else {
+  r='<p><b>Riesgo de cáncer sin tratamiento:</b> aprox. 0.4% por año'+(vih?'':' (dato de personas con VIH)')+'</p>';
+  r+='<p>El tratamiento reduce el riesgo de cáncer aprox. 57% (ANCHOR).</p>';
+ }
+ document.getElementById('r').innerHTML='<h2>Resultado</h2>'+r;
+}
+</script>
+</body>
+</html>
